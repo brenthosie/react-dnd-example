@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Session from './Session'
 
 const divStyle = {
   borderStyle: 'solid',
@@ -11,11 +12,6 @@ const DropDiv = props => {
   return (
     <div style={divStyle} />
   )
-}
-
-const Session = props => {
-  const style = { ...divStyle, backgroundColor: 'cyan', width: 200 }
-  return <div style={style}>{props.children}</div>
 }
 
 class GridRow extends Component {
@@ -32,12 +28,12 @@ class GridRow extends Component {
 
     return (
       <div className='grid-row' style={style}>
-        <DropDiv startTime={0} />
-        <DropDiv startTime={1} />
-        <DropDiv startTime={2} />
-        <Session>{`session ${props.index}`}</Session>
-        <DropDiv startTime={3} />
-        <DropDiv startTime={4} />
+        {
+          props.room.sessionPositions.map((isSession, index) => !isSession
+            ? <DropDiv startTime={index} />
+            : <Session style={divStyle}>{`${props.room.name} Session`}</Session>
+          )
+        }
       </div>
     )
   }
