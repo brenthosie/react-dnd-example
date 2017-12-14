@@ -47,9 +47,9 @@ class App extends Component {
           <img src={logo} className='App-logo' alt='logo' />
           <h1 className='App-title'>Welcome to React</h1>
         </header>
-        <div style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto', marginTop: 10 }}>
+        <div style={{ padding: 10, marginLeft: 'auto', marginRight: 'auto', marginTop: 10 }}>
           {
-            state.rooms.map(n => <GridRow key={n.id} room={n} onHandleDrop={this.onHandleDrop} />)
+            state.rooms.map((n, index) => <GridRow key={n.id} room={n} roomIndex={index} onHandleDrop={this.onHandleDrop} />)
           }
         </div>
       </div>
