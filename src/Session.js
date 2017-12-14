@@ -7,7 +7,7 @@ class Session extends Component {
     const style = { ...props.style, backgroundColor: 'cyan', width: 200 }
 
     return (
-      <div style={style}>{props.children}</div>
+      <div onClick={props.onClick} style={style}>{props.children}</div>
     )
   }
 }

@@ -29,10 +29,20 @@ class GridRow extends Component {
     return (
       <div className='grid-row' style={style}>
         {
-          props.room.sessionPositions.map((isSession, index) => !isSession
-            ? <DropDiv startTime={index} />
-            : <Session style={divStyle}>{`${props.room.name} Session`}</Session>
-          )
+          props.room.sessionPositions.map((isSession, index) => {
+            const key = `${props.room.id}-${index}`
+            return !isSession
+            ? <DropDiv key={key} startTime={index} />
+            : (
+              <Session
+                key={key}
+                style={divStyle}
+                onClick={e => props.onHandleDrop(props.room.id, index - 1)}
+              >
+                {`${props.room.name} Session`}
+              </Session>
+            )
+          })
         }
       </div>
     )
