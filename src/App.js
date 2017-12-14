@@ -4,7 +4,7 @@ import './App.css'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import GridRow from './GridRow'
-import { data } from './utils'
+import { data, dataLarge } from './utils'
 import findIndex from 'lodash/findIndex'
 
 class App extends Component {
@@ -12,9 +12,10 @@ class App extends Component {
     super(props)
 
     this.onHandleDrop = this.onHandleDrop.bind(this)
+    this.toggle = this.toggle.bind(this)
 
     this.state = {
-      rooms: data
+      useDataLarge: false
     }
   }
 
@@ -38,8 +39,18 @@ class App extends Component {
     }
   }
 
+  toggle () {
+    this.setState(prevState => {
+      return {
+        useDataLarge: !prevState.useDataLarge
+      }
+    })
+  }
+
   render () {
     const { state } = this
+
+    const dataToUse = state.useDataLarge ? [ ...dataLarge ] : [ ...data ]
 
     return (
       <div className='App'>
@@ -47,9 +58,10 @@ class App extends Component {
           <img src={logo} className='App-logo' alt='logo' />
           <h1 className='App-title'>Welcome to React</h1>
         </header>
-        <div style={{ padding: 10, marginLeft: 'auto', marginRight: 'auto', marginTop: 10 }}>
+        <div style={{ marginTop: 50 }}><button onClick={this.toggle}>{state.useDataLarge ? 'use small data' : 'use large data'}</button></div>
+        <div style={{ padding: 10, marginTop: 10 }}>
           {
-            state.rooms.map((n, index) => <GridRow key={n.id} room={n} roomIndex={index} onHandleDrop={this.onHandleDrop} />)
+            dataToUse.map((room, index) => <GridRow key={room.id} room={room} roomIndex={index} onHandleDrop={() => {}} />)
           }
         </div>
       </div>
